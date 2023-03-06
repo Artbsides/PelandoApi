@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  url        = env("POSTGRES_CONNECTION_STRING")
+  provider   = "postgresql"
+  extensions = [uuidOssp(map: "uuid-ossp")]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+  binaryTargets   = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+model Products {
+  id          String  @id @db.Uuid @default(dbgenerated("uuid_generate_v4()"))
+  title       String
+  description String?
+  price       String?
+  image       String?
+  url         String  @unique
+}

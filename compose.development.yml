@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  pelando-api:
+    image: pelando-api:development
+    command: ${COMPOSE_DEVELOPMENT_COMMAND:-}
+    build:
+      target: development
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+      - ${NODE_PORT_DEBUG}:${NODE_PORT_DEBUG}
+    volumes:
+        - .:/pelando-api
+        - ./node_modules:/pelando-api/node_modules

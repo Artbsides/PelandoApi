@@ -1,0 +1,17 @@
+#
+# IGNORE
+#
+
+/dist
+/node_modules
+
+**/Coverage
+
+.vscode/*
+
+#
+# IGNORE EXCEPTIONS
+#
+
+!.vscode/launch.json
+!.vscode/settings.json
