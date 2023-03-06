@@ -58,7 +58,7 @@ else
 	@echo "==== Action not found."
 endif
 
-github-tag:  ## Create / Delete github tags. action=create|delete
+github-tag:  ## Create or delete github tags. action=create|delete tag=[0-9].[0-9].[0-9]-staging|
 ifeq ("$(action)", "create")
 	@git tag $(tag) && \
 	  git push origin $(tag)
