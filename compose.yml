@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7.0
+    container_name: crawler-api.redis
+    command: >
+      --appendonly yes
+      --port ${REDIS_PORT}
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis:/redis/data
+
+  postgres:
+    image: postgres:15.2
+    container_name: crawler-api.postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - postgres:/postgres/data
+
+  pelando-api:
+    image: pelando-api:latest
+    container_name: pelando-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
+      REDIS_CONNECTION_STRING: ${REDIS_CONNECTION_STRING}
+      REDIS_TTL: ${REDIS_TTL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+
+volumes:
+  redis:
+  postgres:
