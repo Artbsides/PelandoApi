@@ -3,7 +3,7 @@ version: "3.9"
 services:
   redis:
     image: redis:7.0
-    container_name: crawler-api.redis
+    container_name: pelando-api.redis
     command: >
       --appendonly yes
       --port ${REDIS_PORT}
@@ -15,7 +15,7 @@ services:
 
   postgres:
     image: postgres:15.2
-    container_name: crawler-api.postgres
+    container_name: pelando-api.postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
