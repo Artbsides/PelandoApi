@@ -1,16 +1,21 @@
 import { classToPlain } from "@nestjs/class-transformer";
 import { Injectable } from "@nestjs/common";
-import { Products } from "@prisma/client";
 import { PrismaService } from "Api/Confs/Database";
 import Product from "../Models/Product";
 
 @Injectable()
 export class ScraperDatabaseRepository {
-  constructor(
-    private prisma: PrismaService
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  async createOrUpdate(product: Product): Promise<Products> {
+  async find(url: string): Promise<Product | null> {
+    return await this.prisma.products.findFirst({
+      where: {
+        url: url
+      }
+    });
+  }
+
+  async createOrUpdate(product: any): Promise<Product> {
     return await this.prisma.products.upsert({
       where: {
         url: product.url

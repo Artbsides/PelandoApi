@@ -3,8 +3,7 @@ import { InternalServerErrorException } from "Api/Exceptions/Throws/InternalServ
 
 describe("InternalServerErrorException", () => {
   it("Should return an exception", () => {
-    const exception: InternalServerErrorException =
-      new InternalServerErrorException();
+    const exception: InternalServerErrorException = new InternalServerErrorException();
 
     expect(exception.name).not.toBe("");
     expect(exception.message).not.toBe("");

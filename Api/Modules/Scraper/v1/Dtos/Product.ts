@@ -7,8 +7,9 @@ export class ProductDto {
     require_protocol: true,
 
     protocols: [
-      "http", "https"
+      "http",
+      "https"
     ]
   })
-  url: string
+  url: string;
 }

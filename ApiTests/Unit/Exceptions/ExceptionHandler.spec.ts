@@ -2,40 +2,31 @@ import { ForbiddenException, InternalServerErrorException, NotFoundException } f
 import { HttpExceptionHandler } from "Api/Exceptions/ExceptionHandler";
 
 describe("ExceptionHandler", () => {
-  const handler: HttpExceptionHandler =
-    new HttpExceptionHandler();
+  const handler: HttpExceptionHandler = new HttpExceptionHandler();
 
   const host: any = {
     switchToHttp: () => ({
       getResponse: () => {
-        return { json: jest.fn().mockReturnThis(),
-          status: jest.fn().mockReturnThis() }
-        }
+        return { json: jest.fn().mockReturnThis(), status: jest.fn().mockReturnThis() };
+      }
     })
   };
 
   const env = process.env;
 
-  beforeEach(() =>
-    process.env = { ...env });
+  beforeAll(() => (process.env = { ...env }));
 
-  it("Should return void when exception exists", async () => await
-    expect(handler.catch(new NotFoundException(), host))
-      .resolves.toBeUndefined()
-  );
+  it("Should return void when exception exists", async () =>
+    await expect(handler.catch(new NotFoundException(), host)).resolves.toBeUndefined());
 
-  it("Should return void when exception doesn't exists", async () => await
-    expect(handler.catch(new ForbiddenException(), host))
-      .resolves.toBeUndefined()
-  );
+  it("Should return void when exception doesn't exists", async () =>
+    await expect(handler.catch(new ForbiddenException(), host)).resolves.toBeUndefined());
 
   it("Should return void with a different environment", async () => {
     process.env.NODE_ENV = "development";
 
-    await expect(handler.catch(new InternalServerErrorException(), host))
-      .resolves.toBeUndefined();
+    await expect(handler.catch(new InternalServerErrorException(), host)).resolves.toBeUndefined();
   });
 
-  afterEach(() =>
-    process.env = env);
+  afterAll(() => (process.env = env));
 });

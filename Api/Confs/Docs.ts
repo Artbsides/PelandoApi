@@ -19,8 +19,7 @@ export class Docs {
       .addBearerAuth(this.token as SecuritySchemeObject, "Authorization")
       .build();
 
-    const document: OpenAPIObject = SwaggerModule
-      .createDocument(app, config);
+    const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
 
     SwaggerModule.setup("docs", app, document);
   }

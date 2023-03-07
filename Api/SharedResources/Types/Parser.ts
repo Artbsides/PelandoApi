@@ -1,2 +1,1 @@
-export type ParserType =
-  Record<string, string|string[]>;
+export type ParserType = Record<string, string | string[]>;

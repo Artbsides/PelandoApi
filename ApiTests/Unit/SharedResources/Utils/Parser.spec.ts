@@ -16,6 +16,9 @@ describe("Parser", () => {
     delete data.html[4];
 
     expect(Parser.run(data.html.join(""))).toStrictEqual({
-      ...data.product, image: "", description: "" });
+      ...data.product,
+      image: "",
+      description: ""
+    });
   });
 });

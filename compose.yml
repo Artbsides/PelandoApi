@@ -28,11 +28,13 @@ services:
   pelando-api:
     image: pelando-api:latest
     container_name: pelando-api
+    tty: true
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       NODE_ENV: ${NODE_ENV}
+      NODE_PORT: ${NODE_PORT}
       POSTGRES_CONNECTION_STRING: ${POSTGRES_CONNECTION_STRING}
       REDIS_CONNECTION_STRING: ${REDIS_CONNECTION_STRING}
       REDIS_TTL: ${REDIS_TTL}

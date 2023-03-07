@@ -6,15 +6,15 @@ import { catchError, firstValueFrom } from "rxjs";
 
 @Injectable()
 export class RequestsService {
-  constructor(
-    private readonly httpService: HttpService
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   async get(url: string): Promise<AxiosResponse> {
     return await firstValueFrom(
-      this.httpService.get(url).pipe(catchError(() => {
-        throw new ScraperException();
-      })
-    ));
+      this.httpService.get(url).pipe(
+        catchError(() => {
+          throw new ScraperException();
+        })
+      )
+    );
   }
 }

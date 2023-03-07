@@ -13,9 +13,7 @@ import { ScraperService } from "./v1/Service";
       timeout: 15000
     })
   ],
-  controllers: [
-    ScraperController
-  ],
+  controllers: [ScraperController],
   providers: [
     ScraperService,
     ScraperCacheRepository,

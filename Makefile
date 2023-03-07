@@ -28,29 +28,32 @@ help:
 build:  ## Build images
 	@docker-compose build
 
+	@echo
+	@docker-compose -f compose.yml -f compose.development.yml build
+
 redis:  ## Run redis
 	@docker-compose up redis -d
 
-postgres: orm-migrate  ## Run postgres
+postgres: ## Run postgres
 	@docker-compose up postgres -d
 
-orm-migrate:  ## Run prisma migrate
-	@COMPOSE_DEVELOPMENT_COMMAND="npx prisma migrate deploy" \
-		docker-compose -f compose.yml -f compose.development.yml up pelando-api
-
-install:  ## Install api dependencies
+packages:  ## Install api dependencies
 	@COMPOSE_DEVELOPMENT_COMMAND="npm ci" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 
-tests:  ## Run tests. mode=watch|debug|cov
-ifneq ($(filter "$(mode)", "watch" "debug" "cov"),)
+migrate-database:  ## Run prisma migrate
+	@COMPOSE_DEVELOPMENT_COMMAND="npx prisma migrate deploy" \
+		docker-compose -f compose.yml -f compose.development.yml up pelando-api
+
+tests:  ## Run tests. mode=viewer|cov
+ifneq ($(filter "$(mode)", "viewer" "cov"),)
 	@COMPOSE_DEVELOPMENT_COMMAND="npm run tests:$(mode)" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 else
 	@echo ==== Mode not found.
 endif
 
-lint:  ## Run lint. mode=analyzer|fix
+code-convention:  ## Run lint. mode=analyzer|fix
 ifneq ($(filter "$(mode)", "analyzer" "fix"),)
 	@COMPOSE_DEVELOPMENT_COMMAND="npm run lint:$(mode)" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api

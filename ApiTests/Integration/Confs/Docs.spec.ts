@@ -3,24 +3,24 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { PrismaService } from "Api/Confs/Database";
 import { Docs } from "Api/Confs/Docs";
 import { AppModule } from "Api/Module";
+import { randomUUID } from "crypto";
 
 describe("Docs", () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        AppModule
-      ]
-    })
-    .overrideProvider(PrismaService)
-    .useValue({})
-    .overrideProvider(CACHE_MODULE_OPTIONS)
-    .useValue({})
-    .compile();
+  beforeAll(async () => {
+    process.env.JWT_SECRET = randomUUID();
 
-    app = await module
-      .createNestApplication().init();
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [AppModule]
+    })
+      .overrideProvider(PrismaService)
+      .useValue({})
+      .overrideProvider(CACHE_MODULE_OPTIONS)
+      .useValue({})
+      .compile();
+
+    app = await module.createNestApplication().init();
   });
 
   describe("useSwagger", () => {
