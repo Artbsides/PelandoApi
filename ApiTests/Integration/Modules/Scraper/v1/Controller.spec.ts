@@ -70,8 +70,6 @@ describe("Scraper", () => {
   });
 
   it("/ (GET) from database", done => {
-    const { created_at, updated_at, ...product } = data.product;
-
     jest.spyOn(httpService, "get")
       .mockImplementationOnce(() => of(data.response));
 

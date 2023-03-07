@@ -1,5 +1,6 @@
 import { FakerProduct } from "ApiTests/Faker/Modules/Scraper/v1/Models/Product";
 import { AxiosResponse } from "axios";
+import { randomUUID } from "crypto";
 import * as jwt from 'jsonwebtoken';
 import { Algorithm } from 'jsonwebtoken';
 
@@ -28,6 +29,8 @@ export class FakerRequestsService {
   };
 
   static headers(): Record<string, string> {
+    process.env.JWT_SECRET = randomUUID();
+
     return {
       ApiVersion: "1",
       Authorization: `Bearer ${jwt.sign({}, process.env.JWT_SECRET as string, {

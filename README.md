@@ -126,13 +126,15 @@ $ curl --location 'http://localhost:3000?url=https%3A%2F%2Fwww.cea.com.br%2Fcole
 
 É provavel que algumas urls estejam indisponíveis ou eventuais problemas venham a acontecer, ou seja, nem todos os possíveis problemas foram devidamente tratados até o momento.
 
-É importante dar ênfaze ao header Authorization. Este é um Bearer token do tipo (JWT)[https://jwt.io] que possui apenas a chave relacionada a sua data de expiração. Em ambientes reais, é muito provavel que seja necessária a incrementação de outras chaves para validação. Caso o token esteja expirado, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente, porém, sem encodar como Base64.
+É importante dar ênfaze ao header Authorization. Este é um Bearer token do tipo (JWT)[https://jwt.io] que possui apenas a propriedade relacionada a sua data de expiração. Em ambientes reais, é provável que seja necessária a incrementação de outras propriedades para validação. 
 
 # Variáveis de Ambiente
 
 As variáveis de ambiente estão configuradas no arquivo .env, estão organizadas por tipo de uso, setadas para desenvolvimento local e toda configuração é aplicada automaticamente tanto para inicialização Docker quanto em máquina local.
 
 Caso seja necessário alterar alguma variável, basta editá-las. As alterações serão aplicadas em todos os modos de inicialização.
+
+Lembre-se de atribuir valor à variável de ambiente `JWT_SECRETS` com alguma string de sua escolha. Para gerar um token válido, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente (JWT_SECRETS) sem encodar em Base64.
 
 Em ambientes externos voltados a staging e production, as variáveis de ambiente são encriptadas e estão ocalizadas no diretório `.k8s`, que também possui outras configurações para deploy em [kubernetes](https://kubernetes.io/pt-br).
 

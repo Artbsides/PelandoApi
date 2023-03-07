@@ -3,11 +3,14 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { PrismaService } from "Api/Confs/Database";
 import { Docs } from "Api/Confs/Docs";
 import { AppModule } from "Api/Module";
+import { randomUUID } from "crypto";
 
 describe("Docs", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
+    process.env.JWT_SECRET = randomUUID();
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         AppModule
