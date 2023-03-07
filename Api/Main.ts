@@ -1,13 +1,11 @@
 import { ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 import { Docs } from "./Confs/Docs";
 import { HttpExceptionHandler } from "./Exceptions/ExceptionHandler";
 import { AppModule } from "./Module";
 
 async function bootstrap() {
-  const app = await NestFactory
-    .create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+  const app = await NestFactory.create(AppModule);
 
   app.useGlobalFilters(
     new HttpExceptionHandler());
