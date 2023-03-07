@@ -134,7 +134,7 @@ As variáveis de ambiente estão configuradas no arquivo .env, estão organizada
 
 Caso seja necessário alterar alguma variável, basta editá-las. As alterações serão aplicadas em todos os modos de inicialização.
 
-* Lembre-se de habilitar e atribuir valor à variável de ambiente `JWT_SECRETS` com alguma string de sua escolha. Para gerar um token válido, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente (JWT_SECRETS) sem encodar em Base64.
+* Lembre-se de atribuir valor à variável de ambiente `JWT_SECRETS` com alguma string de sua escolha. Para gerar um token válido, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente (JWT_SECRETS) sem encodar em Base64.
 
 Em ambientes externos voltados a staging e production, as variáveis de ambiente são encriptadas e estão ocalizadas no diretório `.k8s`, que também possui outras configurações para deploy em [kubernetes](https://kubernetes.io/pt-br).
 
