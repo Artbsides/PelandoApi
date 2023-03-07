@@ -20,10 +20,10 @@ A partir de requests http para a aplicação, é necessário retornar alguns dad
                              |-->[Fim]
 
       |-->[Api realiza o scrape na url do produto]
-        |-->[Insere em banco de dados]
-        |-->[Insere no cache]
-        |-->[Retorna os dados em banco de dados]
-              |-->[Fim]
+            |-->[Insere em banco de dados]
+            |-->[Insere no cache]
+            |-->[Retorna os dados em banco de dados]
+                  |-->[Fim]
 ```
 
 # Armazenamento de Dados
