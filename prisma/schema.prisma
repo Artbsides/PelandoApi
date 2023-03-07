@@ -14,10 +14,12 @@ generator client {
 }
 
 model Products {
-  id          String  @id @db.Uuid @default(dbgenerated("uuid_generate_v4()"))
+  id          String   @id @db.Uuid @default(dbgenerated("uuid_generate_v4()"))
   title       String
   description String?
   price       String?
   image       String?
-  url         String  @unique
+  url         String   @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt @default(now())
 }

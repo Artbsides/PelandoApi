@@ -9,15 +9,21 @@ A partir de requests http para a aplicação, é necessário retornar alguns dad
 ```
 [GET REQUEST?url=<url-do-produto>]
  |
- |-->[API verifica se os dados existem no cache previamente setado em 60m]
+ |-->[API verifica se registro existe em cache]
+      |-->[Se sim, retorna dados do cache]
+            |-->[Fim]
       |
-      |-->[Se sim, busca os dados diretamente do cache]
-      |-->[Se não, busca os dados na url do produto passado]
-            |
-            |-->[Insere em banco de dados]
-            |-->[Insere no cache]
-      |
-      |-->[Retorna os dados em formato json]
+      |-->[Api verifica se registro existe em banco de dados]
+            |-->[Se sim, insere em cache]
+                  |-->[Verifica se datetime de registro é menor que 60m]
+                       |-->[Se sim, retorna dados em banco de dados]
+                             |-->[Fim]
+
+      |-->[Api realiza o scrape na url do produto]
+        |-->[Insere em banco de dados]
+        |-->[Insere no cache]
+        |-->[Retorna os dados em banco de dados]
+              |-->[Fim]
 ```
 
 # Armazenamento de Dados
@@ -48,15 +54,10 @@ Após certificar-se de que as dependências estão instaladas na máquina que ir
 
 O arquivo `Makefile` possui comandos pré-configurados que auxiliam algumas rotinas em ambiente dockerizado, tais como: Disponibilizar banco de dados e cache, inicializar a aplicação, rodar os testes e convenção de código, assim como também manipular arquivos contendo variáveis de ambiente encriptadas e tags no github.
 
-Para exibir a relação de comandos disponíveis e seus respectivos modos de uso, basta aplicar o comando abaixo:
+Para exibir a relação de comandos disponíveis e seus respectivos modos de uso, basta aplicar um dos dois comandos abaixo:
 
 ```
 $ make
-```
-
-ou
-
-```
 $ make help
 ```
 

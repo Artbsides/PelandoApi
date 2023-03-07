@@ -1,13 +1,12 @@
 import { plainToClass } from "@nestjs/class-transformer";
-import { Injectable, Inject, CACHE_MANAGER } from "@nestjs/common";
-import { Cache } from "cache-manager";
+import { Injectable, Inject, CACHE_MANAGER, CacheTTL, CacheStore } from "@nestjs/common";
 import { Md5 } from "ts-md5";
 import Product from "../Models/Product";
 
 @Injectable()
 export class ScraperCacheRepository {
   constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+    @Inject(CACHE_MANAGER) private cacheManager: CacheStore
   ) {}
 
   async find(url: string): Promise<Product|null> {
@@ -19,7 +18,7 @@ export class ScraperCacheRepository {
     return null;
   }
 
-  async create(product: Product): Promise<void> {
-    await this.cacheManager.set(Md5.hashStr(product.url), product);
+  async create(product: Product, ttl?: number): Promise<void> {
+    await this.cacheManager.set(Md5.hashStr(product.url), product, { ttl: ttl });
   }
 }
