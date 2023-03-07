@@ -5,9 +5,7 @@ import Product from "../Models/Product";
 
 @Injectable()
 export class ScraperDatabaseRepository {
-  constructor(
-    private prisma: PrismaService
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async find(url: string): Promise<Product | null> {
     return await this.prisma.products.findFirst({

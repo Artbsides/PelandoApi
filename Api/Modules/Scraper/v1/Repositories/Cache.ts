@@ -4,9 +4,7 @@ import Product from "../Models/Product";
 
 @Injectable()
 export class ScraperCacheRepository {
-  constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: CacheStore
-  ) {}
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: CacheStore) {}
 
   async find(url: string): Promise<Product | undefined> {
     return await this.cacheManager.get<Product>(Md5.hashStr(url));

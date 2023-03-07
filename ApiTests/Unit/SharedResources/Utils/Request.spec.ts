@@ -16,14 +16,10 @@ describe("RequestsService", () => {
   let httpService: HttpService;
   let requestsService: RequestsService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        HttpModule
-      ],
-      providers: [
-        RequestsService
-      ]
+      imports: [HttpModule],
+      providers: [RequestsService]
     }).compile();
 
     httpService = module.get<HttpService>(HttpService);
@@ -31,20 +27,18 @@ describe("RequestsService", () => {
   });
 
   it("Should return a html content", async () => {
-    jest.spyOn(httpService, "get")
-      .mockImplementationOnce(() => of(data.response));
+    jest.spyOn(httpService, "get").mockImplementationOnce(() => of(data.response));
 
-    const request = await
-      requestsService.get(data.url);
+    const request = await requestsService.get(data.url);
 
     expect(request.data).toStrictEqual(data.html);
   });
 
   it("Should return an exception", async () => {
-    jest.spyOn(httpService, "get")
-      .mockImplementationOnce(() => throwError(() => AxiosError));
+    jest.spyOn(httpService, "get").mockImplementationOnce(() => throwError(() => AxiosError));
 
     expect(async () => {
-      await requestsService.get(data.url) }).rejects.toThrow(ScraperException);
+      await requestsService.get(data.url);
+    }).rejects.toThrow(ScraperException);
   });
 });

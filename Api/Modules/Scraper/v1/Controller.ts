@@ -6,9 +6,7 @@ import { ScraperService } from "./Service";
 
 @Controller({ version: "1" })
 export class ScraperController {
-  constructor(
-    private readonly scraperService: ScraperService
-  ) {}
+  constructor(private readonly scraperService: ScraperService) {}
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)

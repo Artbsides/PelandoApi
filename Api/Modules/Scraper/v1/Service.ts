@@ -16,32 +16,32 @@ export class ScraperService {
   ) {}
 
   async getProduct(productDto: ProductDto): Promise<Product> {
-    const cacheProduct = await this.scraperCacheRepository
-      .find(productDto.url);
+    const cacheProduct = await this.scraperCacheRepository.find(productDto.url);
 
-    if (cacheProduct)
-      return cacheProduct;
+    if (cacheProduct) return cacheProduct;
 
-    const databaseProduct = await this.scraperDatabaseRepository
-      .find(productDto.url);
+    const databaseProduct = await this.scraperDatabaseRepository.find(productDto.url);
 
     if (databaseProduct) {
       const diffDatetime = new Diff.Datetime(new Date(), databaseProduct.updated_at);
 
-      this.scraperCacheRepository.create(databaseProduct,
-        new Diff.Numbers(process.env.REDIS_TTL, diffDatetime.getSeconds()).getRounded());
+      this.scraperCacheRepository.create(
+        databaseProduct,
+        new Diff.Numbers(process.env.REDIS_TTL, diffDatetime.getSeconds()).getRounded()
+      );
 
-      if (diffDatetime.getHours() < 1)
-        return databaseProduct;
+      if (diffDatetime.getHours() < 1) return databaseProduct;
     }
 
     return await this.requests.get(productDto.url).then(async response => {
-      const databaseProduct = await this.scraperDatabaseRepository
-        .createOrUpdate({ ...Parser.run(response.data), url: productDto.url });
+      const databaseProduct = await this.scraperDatabaseRepository.createOrUpdate({
+        ...Parser.run(response.data),
+        url: productDto.url
+      });
 
       this.scraperCacheRepository.create(databaseProduct);
 
       return databaseProduct;
-    })
+    });
   }
 }

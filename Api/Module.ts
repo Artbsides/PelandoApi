@@ -14,6 +14,7 @@ import { ScraperModule } from "./Modules/Scraper/Module";
     }),
     RedisModule,
     ScraperModule
+
   ],
   providers: [
     JwtStrategy,

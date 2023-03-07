@@ -3,8 +3,7 @@ import { UnauthorizedException } from "Api/Exceptions/Throws/UnauthorizedExcepti
 
 describe("UnauthorizedException", () => {
   it("Should return an exception", () => {
-    const exception: UnauthorizedException =
-      new UnauthorizedException();
+    const exception: UnauthorizedException = new UnauthorizedException();
 
     expect(exception.name).not.toBe("");
     expect(exception.message).not.toBe("");

@@ -3,8 +3,7 @@ import { NotFoundException } from "Api/Exceptions/Throws/NotFoundException";
 
 describe("NotFoundException", () => {
   it("Should return an exception", () => {
-    const exception: NotFoundException =
-      new NotFoundException();
+    const exception: NotFoundException = new NotFoundException();
 
     expect(exception.name).not.toBe("");
     expect(exception.message).not.toBe("");

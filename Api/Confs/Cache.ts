@@ -7,13 +7,12 @@ import { RedisClientOptions } from "redis";
     CacheModule.registerAsync<RedisClientOptions>({
       isGlobal: true,
       useFactory: async () => ({
-        store: await redisStore({
+        store: (await redisStore({
           ttl: Number(process.env.REDIS_TTL),
           url: process.env.REDIS_CONNECTION_STRING
-        })
-        .catch(e => {
+        }).catch(e => {
           console.log(e);
-        }) as unknown as CacheStore
+        })) as unknown as CacheStore
       })
     })
   ]

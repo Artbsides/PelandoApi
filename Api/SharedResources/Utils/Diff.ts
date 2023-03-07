@@ -13,7 +13,7 @@ export class Diff {
     getSeconds(): number {
       return this.diff / 1000;
     }
-  }
+  };
 
   static Numbers = class {
     diff: number;
@@ -25,5 +25,5 @@ export class Diff {
     getRounded(): number {
       return Math.round(this.diff);
     }
-  }
+  };
 }
