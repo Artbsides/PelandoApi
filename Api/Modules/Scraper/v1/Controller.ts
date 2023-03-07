@@ -1,4 +1,4 @@
-import { Controller, Get, InternalServerErrorException, Query } from "@nestjs/common";
+import { Controller, Get, Query } from "@nestjs/common";
 import { ProductDto } from "./Dtos/Product";
 import Product from "./Models/Product";
 import { ScraperService } from "./Service";

@@ -30,7 +30,7 @@ export class FakerRequestsService {
   static headers(): Record<string, string> {
     return {
       ApiVersion: "1",
-      Authorization: `Bearer ${jwt.sign({}, process.env.JWT_SECRET!, {
+      Authorization: `Bearer ${jwt.sign({}, process.env.JWT_SECRET as string, {
         algorithm: process.env.JWT_ALGORITHM as Algorithm, expiresIn: 3000
       })}`
     }
