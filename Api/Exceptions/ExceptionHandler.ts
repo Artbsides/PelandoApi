@@ -17,9 +17,7 @@ export class HttpExceptionHandler implements ExceptionFilter {
         id: randomUUID(),
         error: {
           message: exception.message,
-          ...(process.env.NODE_ENV === "development" && {
-            trace: exception.stack
-          })
+          ...(process.env.NODE_ENV === "development" && { trace: exception.stack })
         }
       });
   }
