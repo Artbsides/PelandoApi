@@ -51,6 +51,8 @@ Após certificar-se de que as dependências estão instaladas na máquina que ir
 
 É recomendado o uso dos comandos `Makefile` para aqueles que desejarem rodar a aplicão completamente dockerizada, neste cenário, não se faz necessária a instalação das dempendências para exeução em máquina local.
 
+* Caso ocorra algum problema relacionado a permissão durante a execução de algum comando do `package.json` ou `Makefile`, talvez seja necessário excluir os diretórios `dist` e `node_modules`.
+
 # Makefile
 
 O arquivo `Makefile` possui comandos pré-configurados que auxiliam algumas rotinas em ambiente dockerizado, tais como: Disponibilizar banco de dados e cache, inicializar a aplicação, rodar os testes e convenção de código, assim como também manipular arquivos contendo variáveis de ambiente encriptadas e tags no github.
