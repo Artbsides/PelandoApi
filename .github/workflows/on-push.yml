@@ -49,4 +49,4 @@ jobs:
 
       - name: Code Convention
         run: |
-          npm run lint
+          npm run lint:analyzer

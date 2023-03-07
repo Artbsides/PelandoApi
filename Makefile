@@ -38,6 +38,22 @@ install:  ## Install api dependencies
 	@COMPOSE_DEVELOPMENT_COMMAND="npm ci" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 
+tests:  ## Run tests. mode=watch|debug/cov
+ifneq ($(filter "$(mode)", "dev" "debug" "cov"),)
+	@COMPOSE_DEVELOPMENT_COMMAND="npm run tests:$(mode)" \
+		docker-compose -f compose.yml -f compose.development.yml up pelando-api
+else
+	@echo ==== Mode not found.
+endif
+
+code-convention:  ## Run lint. mode=analyzer|fix
+ifneq ($(filter "$(mode)", "analzer" "fix"),)
+	@COMPOSE_DEVELOPMENT_COMMAND="npm run lint:$(mode)" \
+		docker-compose -f compose.yml -f compose.development.yml up pelando-api
+else
+	@echo ==== Mode not found.
+endif
+
 secrets:  ## Encrypt or decrypt secrets. environment=staging|production action=encrypt|decrypt
 ifeq ("$(action)", "encrypt")
 	@SECRETS_PATH=".k8s/$(environment)/secrets"

@@ -12,13 +12,12 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug 0.0.0.0:9229 --watch",
     "start:prod": "node dist/Api/Main",
-    "lint": "eslint \"{Api,ApiTests}/**/*.ts\"",
+    "lint:analyzer": "eslint \"{Api,ApiTests}/**/*.ts\"",
     "lint:fix": "eslint \"{Api,ApiTests}/**/*.ts\" --fix",
     "tests": "jest",
     "tests:watch": "jest --watch",
     "tests:cov": "jest --coverage",
-    "tests:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "tests:e2e": "jest --config ./ApiTests/jest-e2e.json"
+    "tests:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
     "@nestjs/axios": "^2.0.0",
