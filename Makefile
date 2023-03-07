@@ -14,7 +14,7 @@ for line in sys.stdin:
 	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
 	if match:
 		target, help = match.groups()
-		print("	%-12s %s" % (target, help))
+		print("	%-16s %s" % (target, help))
 endef
 export PRINT_HELP_PYSCRIPT
 
@@ -31,23 +31,27 @@ build:  ## Build images
 redis:  ## Run redis
 	@docker-compose up redis -d
 
-postgres:  ## Run postgres
+postgres: orm-migrate  ## Run postgres
 	@docker-compose up postgres -d
+
+orm-migrate:  ## Run prisma migrate
+	@COMPOSE_DEVELOPMENT_COMMAND="npx prisma migrate deploy" \
+		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 
 install:  ## Install api dependencies
 	@COMPOSE_DEVELOPMENT_COMMAND="npm ci" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 
-tests:  ## Run tests. mode=watch|debug/cov
-ifneq ($(filter "$(mode)", "dev" "debug" "cov"),)
+tests:  ## Run tests. mode=watch|debug|cov
+ifneq ($(filter "$(mode)", "watch" "debug" "cov"),)
 	@COMPOSE_DEVELOPMENT_COMMAND="npm run tests:$(mode)" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 else
 	@echo ==== Mode not found.
 endif
 
-code-convention:  ## Run lint. mode=analyzer|fix
-ifneq ($(filter "$(mode)", "analzer" "fix"),)
+lint:  ## Run lint. mode=analyzer|fix
+ifneq ($(filter "$(mode)", "analyzer" "fix"),)
 	@COMPOSE_DEVELOPMENT_COMMAND="npm run lint:$(mode)" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 else
