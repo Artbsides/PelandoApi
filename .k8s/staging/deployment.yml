@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pelando-api
-          image: docker.io/rempeloliveira/public:pelando-api.0.0.2-staging
+          image: docker.io/rempeloliveira/public:pelando-api.0.0.3-staging
           ports:
             - containerPort: 3000
           envFrom:
