@@ -164,9 +164,9 @@ Caso seja necessário alterar alguma variável, basta editá-las. As alteraçõe
 | ----------------------------------- |
 ```
 
-Em ambientes externos voltados a staging e production, as variáveis de ambiente são encriptadas e estão ocalizadas no diretório `.k8s`, que também possui outras configurações para deploy em [kubernetes](https://kubernetes.io/pt-br).
+Em ambientes externos voltados a staging e production, as variáveis de ambiente são encriptadas e estão localizadas no diretório `.k8s`, que também possui outras configurações para deploy em [kubernetes](https://kubernetes.io/pt-br).
 
-Para encriptar e/ou desencripar as variáveis de ambiente de staging e production é necessario que o ambiente de infra esteja devidadamente alinhado com esta aplicação, porém, de acordo com o objetivo desta aplicação, este recuso não se faz necessário e não será devidamente documentado neste repositório, ainda assim, caso seja de interesse das partes, notifique-me para a demonstração de uso.
+Para encriptar e/ou desencripar as variáveis de ambiente de staging e production é necessario que o ambiente de infra esteja devidadamente alinhado com esta aplicação, porém, de acordo com o objetivo desta aplicação, este recurso não se faz necessário e não será devidamente documentado neste repositório, ainda assim, caso seja de interesse das partes, notifique-me para a demonstração de uso.
 
 # Workflows
 
@@ -174,4 +174,4 @@ Foram implementadas actions que são executadas em diferentes cenários com o ob
 
 Para que as actions relacionadas aos testes e análise de código sejam executadas, basta a realização do push para a branch na qual está recebendo modificações, caso as actions identifiquem problemas, o merge da branch junto a main não será permitido.
 
-Quanto ao deploy, esta action utiliza workflows compartihados e assim como as variáveis de ambiente encriptadas e demais recursos de deploy, é necessário estar alinhado com o ambiente de infra, porém, a nível de explicação, para execução da action, basta criar tags e o processo icializará.
+Quanto ao deploy, esta action utiliza workflows compartihados e assim como as variáveis de ambiente encriptadas e demais recursos de deploy, é necessário estar alinhado com o ambiente de infra, porém, a nível de explicação, para execução da action, basta criar tags e o processo inicializará.
