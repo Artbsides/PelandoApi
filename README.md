@@ -137,8 +137,6 @@ Caso seja necessário alterar alguma variável, basta editá-las. As alteraçõe
 
 * Lembre-se de atribuir valor à variável de ambiente `JWT_SECRETS` com alguma string de sua escolha. Para gerar um token válido, acesse o site do JWT e altere a data de expiração utilizando a mesma chave de segurança configurada nas variáveis de ambiente (JWT_SECRETS) sem encodar em Base64.
 
-
-
 ```
 | ----------------------------------- |
 | Header                              |
