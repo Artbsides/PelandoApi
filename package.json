@@ -21,7 +21,6 @@
     "tests:e2e": "jest --config ./ApiTests/jest-e2e.json"
   },
   "dependencies": {
-    "@fastify/static": "^6.9.0",
     "@nestjs/axios": "^2.0.0",
     "@nestjs/class-transformer": "^0.4.0",
     "@nestjs/common": "^9.0.0",
@@ -30,7 +29,6 @@
     "@nestjs/jwt": "^10.0.2",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/platform-fastify": "^9.3.9",
     "@nestjs/swagger": "^6.2.1",
     "@prisma/client": "^4.11.0",
     "axios": "^1.3.4",
