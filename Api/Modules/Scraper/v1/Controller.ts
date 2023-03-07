@@ -1,4 +1,5 @@
-import { Controller, Get, Query } from "@nestjs/common";
+import { plainToClass } from "@nestjs/class-transformer";
+import { ClassSerializerInterceptor, Controller, Get, Query, UseInterceptors } from "@nestjs/common";
 import { ProductDto } from "./Dtos/Product";
 import Product from "./Models/Product";
 import { ScraperService } from "./Service";
@@ -10,7 +11,8 @@ export class ScraperController {
   ) {}
 
   @Get()
-  getProduct(@Query() productDto: ProductDto): Promise<Product> {
-    return this.scraperService.getProduct(productDto);
+  @UseInterceptors(ClassSerializerInterceptor)
+  async getProduct(@Query() productDto: ProductDto): Promise<Product> {
+    return plainToClass(Product, await this.scraperService.getProduct(productDto));
   }
 }

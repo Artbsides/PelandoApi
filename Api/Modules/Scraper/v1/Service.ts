@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { plainToClass } from "@nestjs/class-transformer";
 import { ScraperCacheRepository } from "./Repositories/Cache";
 import { ScraperDatabaseRepository } from "./Repositories/Database";
 import Product from "./Models/Product";
@@ -21,30 +20,27 @@ export class ScraperService {
       .find(productDto.url);
 
     if (cacheProduct)
-      return plainToClass(Product, cacheProduct);
+      return cacheProduct;
 
     const databaseProduct = await this.scraperDatabaseRepository
       .find(productDto.url);
 
     if (databaseProduct) {
-      const diffDatetime = new Diff.datetime(new Date(), databaseProduct?.updated_at);
+      const diffDatetime = new Diff.Datetime(new Date(), databaseProduct.updated_at);
 
       this.scraperCacheRepository.create(databaseProduct,
-        new Diff.numbers(process.env.REDIS_TTL, diffDatetime.getSeconds()).getRounded());
+        new Diff.Numbers(process.env.REDIS_TTL, diffDatetime.getSeconds()).getRounded());
 
       if (diffDatetime.getHours() < 1)
         return databaseProduct;
     }
 
     return await this.requests.get(productDto.url).then(async response => {
-      const parsedProduct =
-        plainToClass(Product, Parser.run(response.data));
-
       const databaseProduct = await this.scraperDatabaseRepository
-        .createOrUpdate({ ...parsedProduct, url: productDto.url });
-    
+        .createOrUpdate({ ...Parser.run(response.data), url: productDto.url });
+
       this.scraperCacheRepository.create(databaseProduct);
-    
+
       return databaseProduct;
     })
   }

@@ -19,6 +19,10 @@ describe("Scraper", () => {
     product: FakerProduct.product
   };
 
+  const {
+    created_at,
+    updated_at, ...product } = data.product;
+
   let app: INestApplication;
 
   let cacheManager: Cache;
@@ -34,7 +38,8 @@ describe("Scraper", () => {
     .overrideProvider(PrismaService)
     .useValue({
       products: {
-        upsert: () => null
+        upsert: () => null,
+        findFirst: () => null
       }
     })
     .overrideProvider(CACHE_MODULE_OPTIONS)
@@ -57,7 +62,7 @@ describe("Scraper", () => {
       .query({ url: data.url })
       .set(data.headers)
       .end((e, response) => {
-        expect(response.body).toStrictEqual(data.product);
+        expect(response.body).toStrictEqual(product);
         expect(response.status).toBe(HttpStatusCode.Ok);
 
         done();
@@ -65,6 +70,26 @@ describe("Scraper", () => {
   });
 
   it("/ (GET) from database", done => {
+    const { created_at, updated_at, ...product } = data.product;
+
+    jest.spyOn(httpService, "get")
+      .mockImplementationOnce(() => of(data.response));
+
+    prismaService.products.findFirst = jest.fn()
+      .mockReturnValueOnce(data.product);
+
+    request(app.getHttpServer()).get("/")
+      .query({ url: data.url })
+      .set(data.headers)
+      .end((e, response) => {
+        expect(response.body).toStrictEqual(product);
+        expect(response.status).toBe(HttpStatusCode.Ok);
+
+        done();
+    });
+  });
+
+  it("/ (GET) from external url", done => {
     jest.spyOn(httpService, "get")
       .mockImplementationOnce(() => of(data.response));
 
@@ -75,7 +100,7 @@ describe("Scraper", () => {
       .query({ url: data.url })
       .set(data.headers)
       .end((e, response) => {
-        expect(response.body).toStrictEqual(data.product);
+        expect(response.body).toStrictEqual(product);
         expect(response.status).toBe(HttpStatusCode.Ok);
 
         done();

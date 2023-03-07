@@ -1,5 +1,5 @@
 export class Diff {
-  static datetime = class {
+  static Datetime = class {
     diff: number;
 
     constructor(now: Date, past: Date) {
@@ -15,10 +15,10 @@ export class Diff {
     }
   }
 
-  static numbers = class {
+  static Numbers = class {
     diff: number;
 
-    constructor(biggest: number|string|undefined, smallest: number) {
+    constructor(biggest: number | string | undefined, smallest: number) {
       this.diff = Number(biggest || smallest) - smallest;
     }
 

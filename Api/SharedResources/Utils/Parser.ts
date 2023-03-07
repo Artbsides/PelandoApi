@@ -29,7 +29,7 @@ export class Parser {
       const value = html.getElementsByTagName(filters[0]).filter(tag => tag.attributes.class?.includes(filters[1]));
 
       parser[property] =
-        (property === 'image' ? value[0]?.attributes.src : value[0]?.text) || '';
+        (property === "image" ? value[0]?.attributes.src : value[0]?.text) || "";
     });
 
     return parser;

@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker";
-import { Products } from "@prisma/client";
 import Product from "Api/Modules/Scraper/v1/Models/Product";
 
 export class FakerProduct {

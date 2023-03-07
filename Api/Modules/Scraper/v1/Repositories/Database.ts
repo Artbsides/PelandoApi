@@ -9,7 +9,7 @@ export class ScraperDatabaseRepository {
     private prisma: PrismaService
   ) {}
 
-  async find(url: string): Promise<Product|null> {
+  async find(url: string): Promise<Product | null> {
     return await this.prisma.products.findFirst({
       where: {
         url: url
@@ -17,7 +17,7 @@ export class ScraperDatabaseRepository {
     });
   }
 
-  async createOrUpdate(product: Product): Promise<Product> {
+  async createOrUpdate(product: any): Promise<Product> {
     return await this.prisma.products.upsert({
       where: {
         url: product.url
