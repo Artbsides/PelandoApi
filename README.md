@@ -145,7 +145,7 @@ Caso seja necessário alterar alguma variável, basta editá-las. As alteraçõe
 | ----------------------------------- |
 | {                                   |
 |     "alg": "HS256",                 |
-|      "typ": "JWT"                   |
+|     "typ": "JWT"                    |
 | }                                   |
 | ----------------------------------- |
 | Payload                             |
