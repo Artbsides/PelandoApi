@@ -45,8 +45,8 @@ migrate-database:  ## Run prisma migrate
 	@COMPOSE_DEVELOPMENT_COMMAND="npx prisma migrate deploy" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 
-tests:  ## Run tests. mode=watch|debug|cov
-ifneq ($(filter "$(mode)", "watch" "debug" "cov"),)
+tests:  ## Run tests. mode=viewer|cov
+ifneq ($(filter "$(mode)", "viewer" "cov"),)
 	@COMPOSE_DEVELOPMENT_COMMAND="npm run tests:$(mode)" \
 		docker-compose -f compose.yml -f compose.development.yml up pelando-api
 else

@@ -28,6 +28,7 @@ services:
   pelando-api:
     image: pelando-api:latest
     container_name: pelando-api
+    tty: true
     build:
       context: .
       dockerfile: Dockerfile
